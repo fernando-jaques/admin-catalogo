@@ -1,0 +1,10 @@
+postgres:
+  url: localhost
+  port: 5432
+  database: adm_video
+  username: postgres
+  password: postgres
+
+db:
+  show-sql: true
+  format-sql: true

@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  compression:
+    enabled: true # habilita a compressão
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024 # tamanho mínimo da resposta para ser comprimida, 1kb
+  undertow:
+    threads:
+      io: 4 # processa as requisições de entrada e saída, o ideal é que seja 2 por cpu
+      worker: 64 # processa as requisições, o ideal é que seja 20 por cpu
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${postgres.url}:${postgres.port}/${postgres.database}
+    username: ${postgres.username}
+    password: ${postgres.password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false
+      connection-timeout: 250 # tempo de espera para obter uma conexão
+      max-lifetime: 60000 # tempo máximo de vida de uma conexão
+      maximum-pool-size: 20 # quantidade máxima de conexões
+      minimum-idle: 10 # quantidade mínima de conexões
+      pool-name: ${spring.application.name}-hikari-pool # nome do pool de conexões
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: ${db.show-sql:false}
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: ${db.format_sql:false}
+        generate_statistics: false
+        connection:
+          provider_disables_autocommit: true
+          #Para aumentar a performance do banco de dados, desabilitamos o autocommit e o open-in-view
+          #Mais informações: https://vladmihalcea.com/the-open-session-in-view-anti-pattern/
+    open-in-view: false
+

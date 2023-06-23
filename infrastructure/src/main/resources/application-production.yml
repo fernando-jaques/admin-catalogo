@@ -1,0 +1,10 @@
+postgres:
+  url: ${DATABASE_URL:localhost
+  port: ${DATABASE_PORT:5432}
+  database: ${DATABASE_NAME:adm_video}
+  username: ${DATABASE_USERNAME:postgres}
+  password: ${DATABASE_PASSWORD:postgres}
+
+db:
+  show-sql: false
+  format-sql: false
